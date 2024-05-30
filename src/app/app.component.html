@@ -1,0 +1,25 @@
+<div class="wrapper">
+  <header>
+    <h2>Currency Exchange</h2>
+  </header>
+  <main>
+    <div class="inputTotalForExchange">
+      <input type="number" [(ngModel)]="count">
+    </div>
+    <div class="selectCurrence">
+      <select name="" id="" >
+        <option value="UAH" selected>UAH</option>
+      </select>
+      <div class="switch">
+        <button>стрілка</button>
+      </div>
+      <select id="" [(ngModel)]="selectCurency">
+        @for (name of currency; track name.cc) {
+        <option value="{{name.rate}}">{{name.cc}}</option>
+        }
+      </select>
+    </div>
+    <div class="total">{{total}}</div>
+    <button (click)="calculation()">Розрахувати</button>
+  </main>
+</div>
