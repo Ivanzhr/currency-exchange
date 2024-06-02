@@ -11,25 +11,40 @@ export class AppComponent {
   title = 'project1';
   data: any;
   currency: any;
-  selectCurency: any;
+  selectCurencyFrom = "UAH";
+  selectCurencyTo: any;
   count: any;
   total: any;
 
-  constructor(private apiService: ApiService){}
+  constructor(public apiService: ApiService){}
 
   calculation(){
-    let a = this.count / this.selectCurency
+    let a = this.count * this.selectCurencyTo
     this.total = a.toFixed(2)
+    this.apiService.selectCurrency(this.selectCurencyFrom)
+    // this.apiService.getRateCurrency()
+    // console.log(a)
+    // console.log(this.count)
+    // console.log(this.selectCurencyFrom)
+    // console.log(this.selectCurencyTo)
   }
 
+  // ngOnInit(){
+  //   this.apiService.getListCurrency().subscribe(
+  //     (responce) => {
+  //       this.currency = responce
+  //       console.log(this.currency)
+  //     }
+  //   )
+  //   console.log(this.selectCurencyFrom)
+    
+  // }
   ngOnInit(){
-    this.apiService.getListCurrency().subscribe(
+    this.apiService.getRateCurrency().subscribe(
       (responce) => {
-        this.currency = responce
-        console.log(this.currency)
+        this.currency = Object.entries(responce.conversion_rates).map(([currency, rate]) => {return {currency, rate}})
+        console.log(responce)
       }
     )
-    console.log(this.selectCurency)
-    
   }
 }
